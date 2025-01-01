@@ -44,7 +44,7 @@ export default class User{
     constructor(nome: string, lastName: string, email: string, celular: string, senha: string, foto?: string, endereco?: Endereco){
         this.nome = nome;
         this.lastName = lastName;
-        this.email = email = email;
+        this.email = email;
         this.celular = celular;
         this.senha = senha;
         this.foto = foto;
