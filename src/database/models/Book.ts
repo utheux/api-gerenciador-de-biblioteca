@@ -1,8 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import User from "./User";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("roles")
-export default class Role {
+@Entity('books')
+export default class Book {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -12,13 +11,9 @@ export default class Role {
     @Column()
     description: string;
 
-    @OneToMany(()=> User, (user)=> user.role)
-    users!: User;
-
     constructor(name: string, description: string){
         this.name = name;
         this.description = description;
     }
-
 
 }

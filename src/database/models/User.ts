@@ -1,15 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import Endereco from './Endereco';
-import Livro from './Livro';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Role from './Role';
+import Address from './Address';
 
 @Entity('users')
 export default class User{
     @PrimaryGeneratedColumn()
-    id!: string;
+    id!: number;
 
     @Column()
-    nome: string;
+    name: string;
 
     @Column()
     lastName: string;
@@ -18,36 +17,33 @@ export default class User{
     email: string;
 
     @Column()
-    celular: string;
+    cellphone: string;
 
     @Column()
-    senha: string;
+    password: string;
 
-    @Column()
-    foto?:string;
+    @Column({ nullable: true })
+    photo?:string;
 
-    @OneToOne(()=> Endereco, {
+    @OneToOne(()=> Address, {
         nullable: true,
         cascade: true,
         eager: true
     })
     @JoinColumn()
-    endereco?: Endereco
-
-    @OneToMany(()=> Livro, (livro) => livro.usuario)
-    livros!: Livro[]
+    address?: Address
 
     @ManyToOne(()=> Role, (role)=> role.users)
     role!: Role
     
 
-    constructor(nome: string, lastName: string, email: string, celular: string, senha: string, foto?: string, endereco?: Endereco){
-        this.nome = nome;
+    constructor(name: string, lastName: string, email: string, cellphone: string, password: string, photo?: string, address?: Address){
+        this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.celular = celular;
-        this.senha = senha;
-        this.foto = foto;
-        this.endereco = endereco;
+        this.cellphone = cellphone;
+        this.password = password;
+        this.photo = photo;
+        this.address = address;
     }
 }
