@@ -9,4 +9,6 @@ export default interface InterfaceUserRepository {
 
     deleteUser(id: number): Promise<{success: boolean; message?: string}>;
 
+    login(email: string, password: string): Promise<{success: boolean; acessToken?: string}>;
+
 }

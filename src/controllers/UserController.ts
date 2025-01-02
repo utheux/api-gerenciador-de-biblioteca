@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../database/models/User";
 import UserRepository from "../repositories/UserRepository";
+import hashPasswordService from "../services/hashPasswordService";
 
 export default class UserCOntroller {
     private userRepository;
@@ -11,8 +12,9 @@ export default class UserCOntroller {
 
     async createUser(req: Request, res: Response){
         const {name, lastName, email, cellphone, password, photo} = req.body as User;
+        const hashedPassword = hashPasswordService(password);
         
-        const newUser = new User(name, lastName, email, cellphone, password, photo);
+        const newUser = new User(name, lastName, email, cellphone, hashedPassword, photo);
 
         await this.userRepository.createUser(newUser);
 

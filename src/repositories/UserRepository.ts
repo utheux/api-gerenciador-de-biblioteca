@@ -1,6 +1,8 @@
 import { Repository } from "typeorm";
 import User from "../database/models/User";
 import InterfaceUserRepository from "./interfaces/InterfaceUserRepository";
+import verifyPassword from "../services/verifyPasswordService";
+import jwt from "jsonwebtoken";
 
 export default class UserRepository implements InterfaceUserRepository{
     private repository;
@@ -58,4 +60,22 @@ export default class UserRepository implements InterfaceUserRepository{
             };
         }
     }  
+
+    async login(email: string, password: string): Promise<{success: boolean; acessToken?: string}> {
+        const user = await this.repository.findOne({where: {email: email}});
+
+        if(!user){
+            return {success: false}
+        }
+
+        const JWT_SECRET = process.env.JWT_SECRET as string;
+
+        if(verifyPassword(password, user.password)){
+            const payload = { userId: user.id, userRole: user.role, email: user.email}; // Informações que você deseja incluir no token
+            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }); // Gera o token
+            return {success: true, acessToken: token};
+        }
+
+        return {success: true};
+    }
 }

@@ -2,7 +2,7 @@ import express from 'express';
 import UserRepository from '../repositories/UserRepository';
 import { myDataSource } from '../database/dataSource';
 import User from '../database/models/User';
-import UserController from '../controller/UserController';
+import UserController from '../controllers/UserController';
 
 const router = express.Router();
 
