@@ -30,9 +30,9 @@ export default class UserCOntroller {
 
     async updateUser(req: Request, res: Response){
         const newUser = req.body as User;
-        const id = req.params;
+        const userId = req.user?.userId;
 
-        const {success, message} = await this.userRepository.updateUser(Number(id), newUser);
+        const {success, message} = await this.userRepository.updateUser(Number(userId), newUser);
 
         if(!success){
             res.status(404).json({error: message});
@@ -42,9 +42,9 @@ export default class UserCOntroller {
     }
 
     async deleteUser(req: Request, res: Response){
-        const id = req.params;
+        const userId = req.user?.userId;
 
-        const {success, message} = await this.userRepository.deleteUser(Number(id));
+        const {success, message} = await this.userRepository.deleteUser(Number(userId));
 
         if(!success){
             return res.status(404).json({error: message});

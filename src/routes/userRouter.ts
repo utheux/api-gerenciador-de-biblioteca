@@ -19,7 +19,7 @@ router.post("/", (req, res)=> {userController.createUser(req, res)});
 router.post("/login", (req, res) => {authController.login(req, res)})
 
 router.get("/",middlewareAuth, (req, res) => {userController.listUsers(req, res)});
-router.put("/:id",middlewareAuth, (req, res) => {userController.updateUser(req, res)});
-router.delete("/:id",middlewareAuth, (req, res) => {userController.deleteUser(req, res)});
+router.put("/",middlewareAuth, (req, res) => {userController.updateUser(req, res)});
+router.delete("/",middlewareAuth, (req, res) => {userController.deleteUser(req, res)});
 
 export default router;
