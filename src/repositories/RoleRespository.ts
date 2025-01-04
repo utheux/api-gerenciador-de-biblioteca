@@ -3,19 +3,19 @@ import Role from "../database/models/Role";
 import InterfaceRoleRepository from "./interfaces/InterfaceRoleRepository";
 
 export default class RoleRepository implements InterfaceRoleRepository {
-    private repository;
+    private roleRepository;
 
     constructor(repository: Repository<Role>){
-        this.repository = repository;
+        this.roleRepository = repository;
     }
     
     async createRole(role: Role){
-        const roleCreated = await this.repository.save(role);
+        const roleCreated = await this.roleRepository.save(role);
         return roleCreated;
     }
     
     async rolelist(): Promise<Role[]> {
-        const roleList = await this.repository.find();
+        const roleList = await this.roleRepository.find();
         return roleList;
     }
   

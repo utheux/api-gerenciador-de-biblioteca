@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import User from "../database/models/User";
 import UserRepository from "../repositories/UserRepository";
 import hashPasswordService from "../services/hashPasswordService";
+import RoleRepository from "../repositories/RoleRespository";
 
-export default class UserCOntroller {
+export default class UserController {
     private userRepository;
+
 
     constructor(userRepository: UserRepository){
         this.userRepository = userRepository;
@@ -51,5 +53,17 @@ export default class UserCOntroller {
         }
 
         return res.sendStatus(204)
+    }
+
+    async assignRoleToUser(req: Request, res: Response){
+        const {userId, roleId} = req.params;
+
+        const {success, message} = await this.userRepository.assignRoleToUser(Number(userId), Number(roleId));
+
+        if(!success){
+            return res.status(404).json({error: message});
         }
+
+        return res.sendStatus(204);
+    }
 }
