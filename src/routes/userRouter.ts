@@ -18,6 +18,7 @@ const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, re
 router.post("/", (req, res)=> {userController.createUser(req, res)});
 router.post("/login", (req, res) => {authController.login(req, res)})
 
+// rotas com middleware de autenticação
 router.get("/",middlewareAuth, (req, res) => {userController.listUsers(req, res)});
 router.put("/",middlewareAuth, (req, res) => {userController.updateUser(req, res)});
 router.delete("/",middlewareAuth, (req, res) => {userController.deleteUser(req, res)});
