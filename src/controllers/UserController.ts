@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../database/models/User";
 import UserRepository from "../repositories/UserRepository";
 import hashPasswordService from "../services/hashPasswordService";
-import RoleRepository from "../repositories/RoleRespository";
+
 
 export default class UserController {
     private userRepository;

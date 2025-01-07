@@ -11,4 +11,6 @@ export default interface InterfaceUserRepository {
 
     login(email: string, password: string): Promise<{success: boolean; acessToken?: string, message?: string}>;
 
+    assignRoleToUser(userId: number, roleId: number): Promise<{success: boolean; message?: string}>
+
 }

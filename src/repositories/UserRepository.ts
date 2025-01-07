@@ -17,8 +17,8 @@ export default class UserRepository implements InterfaceUserRepository{
         this.roleRepository = roleRepository;
     }
 
-    async createUser(user: User){
-        this.userRepository.save(user);
+    async createUser(user: User): Promise<void>{
+        await this.userRepository.save(user);
     }
 
     async userList(): Promise<User[]> {
@@ -77,8 +77,8 @@ export default class UserRepository implements InterfaceUserRepository{
         const JWT_SECRET = process.env.JWT_SECRET as string;
 
         if(verifyPassword(password, user.password)){
-            const payload = { userId: user.id, userRole: user.role, userEmail: user.email}; // Informações que você deseja incluir no token
-            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }); // Gera o token
+            const payload = { userId: user.id, userRole: user.role, userEmail: user.email}; 
+            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }); 
             return {success: true, acessToken: token};
         }
 
