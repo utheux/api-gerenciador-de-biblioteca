@@ -1,4 +1,4 @@
-export default interface Address {
+export default interface AddressCep {
     cep: string;
     logradouro: string;
     complemento: string;
