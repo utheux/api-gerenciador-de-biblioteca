@@ -22,7 +22,7 @@ export default class UserRepository implements InterfaceUserRepository{
     }
 
     async userList(): Promise<User[]> {
-        const userList = await this.userRepository.find({relations: ['role']});
+        const userList = await this.userRepository.find({relations: ['role', 'address']});
         return userList;
     }
 
