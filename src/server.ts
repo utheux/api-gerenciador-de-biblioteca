@@ -1,6 +1,8 @@
-import { myDataSource } from './database/dataSource';
+import DataSourceSingleton from './database/dataSourceSingleton';
 import express from 'express';
 import router from './routes/indexRouter';
+
+const myDataSource = DataSourceSingleton.getInstance();
 
 const app = express()
 app.use(express.json())

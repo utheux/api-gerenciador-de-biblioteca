@@ -1,9 +1,11 @@
 import express, { RequestHandler } from 'express';
 import BookController from "../controllers/BookController";
-import { myDataSource } from "../database/dataSource";
+import DataSourceSingleton from '../database/dataSourceSingleton';
 import Book from "../database/models/Book";
 import BookRepository from "../repositories/BookRepository";
 import authenticate from '../middlewares/authMiddleware';
+
+const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router();
 

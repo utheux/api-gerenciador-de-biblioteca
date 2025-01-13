@@ -1,10 +1,12 @@
 import express, { RequestHandler } from "express";
 import AddressRepository from "../repositories/AddressRepository";
-import { myDataSource } from "../database/dataSource";
+import DataSourceSingleton from "../database/dataSourceSingleton";
 import Address from "../database/models/Address";
 import User from "../database/models/User";
 import AddressController from "../controllers/AddressController";
 import authenticate from "../middlewares/authMiddleware";
+
+const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router();
 const adressRepository = new AddressRepository(myDataSource.getRepository(Address), myDataSource.getRepository(User));
