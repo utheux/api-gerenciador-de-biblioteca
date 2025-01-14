@@ -1,12 +1,14 @@
 import express from 'express';
 import UserRepository from '../repositories/UserRepository';
-import { myDataSource } from '../database/dataSource';
+import DataSourceSingleton from '../database/dataSourceSingleton';
 import User from '../database/models/User';
 import UserController from '../controllers/UserController';
 import AuthController from '../controllers/AuthController';
 import authenticate from '../middlewares/authMiddleware';
 import { RequestHandler } from 'express-serve-static-core';
 import Role from '../database/models/Role';
+
+const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router();
 

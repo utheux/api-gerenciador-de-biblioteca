@@ -1,8 +1,10 @@
 import RoleController from "../controllers/RoleController";
-import { myDataSource } from "../database/dataSource";
+import DataSourceSingleton from "../database/dataSourceSingleton";
 import Role from "../database/models/Role";
 import RoleRepository from "../repositories/RoleRespository";
 import express from "express";
+
+const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router()
 
