@@ -1,6 +1,6 @@
 import express, { RequestHandler } from 'express';
 import BookController from "../controllers/BookController";
-import DataSourceSingleton from '../database/dataSourceSingleton';
+import DataSourceSingleton from '../database/DataSourceSingleton';
 import Book from "../database/models/Book";
 import BookRepository from "../repositories/BookRepository";
 import authenticate from '../middlewares/authMiddleware';

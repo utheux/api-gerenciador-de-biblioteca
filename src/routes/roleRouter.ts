@@ -1,5 +1,5 @@
 import RoleController from "../controllers/RoleController";
-import DataSourceSingleton from "../database/dataSourceSingleton";
+import DataSourceSingleton from "../database/DataSourceSingleton";
 import Role from "../database/models/Role";
 import RoleRepository from "../repositories/RoleRespository";
 import express from "express";

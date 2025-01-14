@@ -1,6 +1,6 @@
 import express from 'express';
 import UserRepository from '../repositories/UserRepository';
-import DataSourceSingleton from '../database/dataSourceSingleton';
+import DataSourceSingleton from '../database/DataSourceSingleton';
 import User from '../database/models/User';
 import UserController from '../controllers/UserController';
 import AuthController from '../controllers/AuthController';

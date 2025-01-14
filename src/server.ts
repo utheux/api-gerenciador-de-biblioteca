@@ -1,4 +1,4 @@
-import DataSourceSingleton from './database/dataSourceSingleton';
+import DataSourceSingleton from './database/DataSourceSingleton';
 import express from 'express';
 import router from './routes/indexRouter';
 
