@@ -1,5 +1,6 @@
 import Address from "../database/models/Address";
 import AddressRepository from "../repositories/AddressRepository";
+import adapterAdressService from "../services/adapterAdressService";
 import getCepService from "../services/getCepService";
 import AddressCep from "../services/interfaces/AddreesCep";
 import {Request, Response} from "express";
@@ -21,10 +22,7 @@ export default class AddressController {
         const {cep, street, number} = req.body as requestbodyAdress;
         const userId = req.user?.userId
         
-        const addressCep: AddressCep = await getCepService(cep);  
-
-        const newAddress = new Address(addressCep.localidade, addressCep.estado, street, number, addressCep.logradouro);
-
+        const newAddress = await adapterAdressService(cep, street, number);
         const {succes, message} = await this.adressRepository.createAdress(Number(userId), newAddress);
 
         if(!succes){
