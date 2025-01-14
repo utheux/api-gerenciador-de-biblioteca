@@ -21,13 +21,9 @@ export default class AddressController {
         const {cep, street, number} = req.body as requestbodyAdress;
         const userId = req.user?.userId
         
-        const addressCep: AddressCep = await getCepService(cep);
-        console.log(addressCep);
-        
+        const addressCep: AddressCep = await getCepService(cep);  
 
         const newAddress = new Address(addressCep.localidade, addressCep.estado, street, number, addressCep.logradouro);
-
-        console.log("chegou aqui")
 
         const {succes, message} = await this.adressRepository.createAdress(Number(userId), newAddress);
 

@@ -1,6 +1,6 @@
 import express, { RequestHandler } from "express";
 import AddressRepository from "../repositories/AddressRepository";
-import DataSourceSingleton from "../database/dataSourceSingleton";
+import DataSourceSingleton from "../database/DataSourceSingleton";
 import Address from "../database/models/Address";
 import User from "../database/models/User";
 import AddressController from "../controllers/AddressController";
