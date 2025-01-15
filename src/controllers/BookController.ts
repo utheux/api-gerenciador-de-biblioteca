@@ -35,7 +35,7 @@ export default class BookController {
     }
 
     async updateBook(req: Request, res: Response){
-        const bookId = req.params;
+        const {bookId} = req.params;
         const newBook = req.body as Book;
         const {success, message} = await this.bookRepository.updateBook(Number(bookId), newBook);
 
@@ -47,7 +47,7 @@ export default class BookController {
     }
 
     async deleteBook(req: Request, res: Response){
-        const bookId = req.params;
+        const {bookId} = req.params;
         
         const {success, message} = await this.bookRepository.deleteBook(Number(bookId));
 
