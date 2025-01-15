@@ -15,12 +15,12 @@ const bookController = new BookController(bookRepository);
 const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, res, next)};
 const checkAdmin: RequestHandler = (req, res, next) => {checkAdminMiddleware(req, res, next)};
 
-router.get("/", (req, res) => {bookController.bookList(req, res)});
+router.get("/", async (req, res) => {await bookController.bookList(req, res)});
 
 //rotas protegidas com middlware de auth
-router.post("/", middlewareAuth, checkAdmin, (req, res) => {bookController.createBook(req, res)});
-router.put("/:bookId", middlewareAuth, checkAdmin, (req, res) => {bookController.updateBook(req, res)});
-router.delete("/bookId", middlewareAuth, checkAdmin, (req, res) => {bookController.deleteBook(req, res)});
+router.post("/", middlewareAuth, checkAdmin, async(req, res) => {await bookController.createBook(req, res)});
+router.put("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.updateBook(req, res)});
+router.delete("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.deleteBook(req, res)});
 
 export default router;
 
