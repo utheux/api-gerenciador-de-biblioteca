@@ -12,7 +12,7 @@ class BookNotifier implements Subject {
         this.observers = this.observers.filter(obs => obs !== observer);
     }
 
-    notify(event: string, data: any): void {
+    notify(event: string, data: unknown): void {
         for (const observer of this.observers) {
             observer.update(event, data);
         }
