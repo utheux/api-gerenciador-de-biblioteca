@@ -21,6 +21,11 @@ bookNotifier.attach(userNotifier);
 
 const bookRepository = new BookRepository(myDataSource.getRepository(Book));
 const bookController = new BookController(bookRepository, bookNotifier);
+
+
+
+
+
 const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, res, next)};
 const checkAdmin: RequestHandler = (req, res, next) => {checkAdminMiddleware(req, res, next)};
 
