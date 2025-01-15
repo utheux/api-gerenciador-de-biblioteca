@@ -5,13 +5,22 @@ import Book from "../database/models/Book";
 import BookRepository from "../repositories/BookRepository";
 import authenticate from '../middlewares/authMiddleware';
 import checkAdminMiddleware from '../middlewares/checkAdminMiddleware';
+import BookNotifier from '../observer/BookNotifier';
+import UserNotifier from '../observer/UserNotifier';
 
 const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router();
 
+const bookNotifier = new BookNotifier();
+
+const userNotifier = new UserNotifier();
+
+bookNotifier.attach(userNotifier);
+
+
 const bookRepository = new BookRepository(myDataSource.getRepository(Book));
-const bookController = new BookController(bookRepository);
+const bookController = new BookController(bookRepository, bookNotifier);
 const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, res, next)};
 const checkAdmin: RequestHandler = (req, res, next) => {checkAdminMiddleware(req, res, next)};
 

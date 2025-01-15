@@ -1,12 +1,15 @@
 import Book from "../database/models/Book";
+import BookNotifier from "../observer/BookNotifier";
 import BookRepository from "../repositories/BookRepository";
 import { Request, Response } from "express";
 
 export default class BookController {
     private bookRepository;
+    private notifier:BookNotifier;
 
-    constructor(bookRepository: BookRepository){
+    constructor(bookRepository: BookRepository, notifier: BookNotifier){
         this.bookRepository = bookRepository;
+        this.notifier = notifier;
     }
 
     async createBook(req: Request, res: Response){
@@ -15,6 +18,7 @@ export default class BookController {
 
         try {
             await this.bookRepository.createBook(newBook);
+            this.notifier.notify("BookCreated", newBook);
             return res.status(201).json({id: newBook.id, name, description});           
         } catch (error) {
             return res.status(500).json({message: error});
