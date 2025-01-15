@@ -79,7 +79,7 @@ export default class UserRepository implements InterfaceUserRepository{
         console.log(user);
 
         if(verifyPassword(password, user.password)){
-            const payload = { userId: user.id, userRole: user.role.name, userEmail: user.email}; 
+            const payload = { userId: user.id, userRole: user.role ? user.role.name : null, userEmail: user.email}; 
             const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }); 
             return {success: true, acessToken: token};
         }
