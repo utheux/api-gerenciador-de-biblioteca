@@ -68,7 +68,7 @@ export default class UserRepository implements InterfaceUserRepository{
     }  
 
     async login(email: string, password: string): Promise<{success: boolean; acessToken?: string, message?: string}> {
-        const user = await this.userRepository.findOne({where: {email: email}});
+        const user = await this.userRepository.findOne({where: {email: email}, relations: ['role', 'address']});
 
         if(!user){
             return {success: false, message: "Email or password incorrect"}
@@ -76,8 +76,10 @@ export default class UserRepository implements InterfaceUserRepository{
 
         const JWT_SECRET = process.env.JWT_SECRET as string;
 
+        console.log(user);
+
         if(verifyPassword(password, user.password)){
-            const payload = { userId: user.id, userRole: user.role, userEmail: user.email}; 
+            const payload = { userId: user.id, userRole: user.role.name, userEmail: user.email}; 
             const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }); 
             return {success: true, acessToken: token};
         }

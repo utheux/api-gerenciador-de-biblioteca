@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 
 const checkAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     // Verifica se o usuário foi autenticado e tem o papel de 'admin'
-    if (req.user && req.user.userRole === 'admin') {
+    console.log(req.user)
+    if (req.user && req.user.userRole === "admin") {
         return next(); // O usuário tem a role 'admin', então continua a requisição
     }
 

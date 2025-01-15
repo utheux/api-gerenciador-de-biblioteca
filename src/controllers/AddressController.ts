@@ -1,8 +1,5 @@
-import Address from "../database/models/Address";
 import AddressRepository from "../repositories/AddressRepository";
 import adapterAdressService from "../services/adapterAdressService";
-import getCepService from "../services/getCepService";
-import AddressCep from "../services/interfaces/AddreesCep";
 import {Request, Response} from "express";
 
 interface requestbodyAdress{
