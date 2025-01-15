@@ -7,7 +7,7 @@ export default class BookController {
     private bookRepository;
     private notifier:BookNotifier;
 
-    constructor(bookRepository: BookRepository, notifier:BookNotifier){
+    constructor(bookRepository: BookRepository, notifier: BookNotifier){
         this.bookRepository = bookRepository;
         this.notifier = notifier;
     }
