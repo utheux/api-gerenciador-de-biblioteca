@@ -18,7 +18,7 @@ export default class BookController {
 
         try {
             await this.bookRepository.createBook(newBook);
-            this.notifier.notify("BookCreated", newBook);
+            await this.notifier.notify("BookCreated", newBook);
             return res.status(201).json({id: newBook.id, name, description});           
         } catch (error) {
             return res.status(500).json({message: error});

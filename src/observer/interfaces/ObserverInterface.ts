@@ -1,5 +1,5 @@
 interface Observer {
-    update(event: string, data: unknown): void;
+    update(event: string, data: unknown): Promise<void>;
 }
 
 export default Observer;
