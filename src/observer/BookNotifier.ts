@@ -1,6 +1,8 @@
 import Observer from "./interfaces/ObserverInterface";
 import Subject from "./interfaces/SubjectInterface";
 
+
+
 class BookNotifier implements Subject {
     private observers: Observer[] = [];
 
@@ -12,9 +14,9 @@ class BookNotifier implements Subject {
         this.observers = this.observers.filter(obs => obs !== observer);
     }
 
-    notify(event: string, data: unknown): void {
+    async notify(event: string, data: unknown): Promise<void> {
         for (const observer of this.observers) {
-            observer.update(event, data);
+            await observer.update(event, data);
         }
     }
 }
