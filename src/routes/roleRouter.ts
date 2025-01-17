@@ -1,17 +1,20 @@
 import RoleController from "../controllers/RoleController";
-import DataSourceSingleton from "../database/DataSourceSingleton";
-import Role from "../database/models/Role";
-import RoleRepository from "../repositories/RoleRespository";
+import ControllerFactory from "../factory/ControllerFactory";
 import express from "express";
 
-const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router()
 
-const roleRepository = new RoleRepository(myDataSource.getRepository(Role));
-const roleController = new RoleController(roleRepository);
+const roleController = ControllerFactory.createController("role");
 
-router.post("/", (req, res) => {roleController.createRole(req, res)});
-router.get("/", (req, res) => {roleController.roleList(req, res)});
+if (roleController instanceof RoleController) {
+    router.post("/", (req, res) => {roleController.createRole(req, res)});
+    router.get("/", (req, res) => {roleController.roleList(req, res)});
+
+} else {
+    throw new Error("Controller is not of type roleController");
+}
+
+
 
 export default router;

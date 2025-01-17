@@ -1,19 +1,18 @@
 import express, { RequestHandler } from "express";
-import AddressRepository from "../repositories/AddressRepository";
 import DataSourceSingleton from "../database/DataSourceSingleton";
-import Address from "../database/models/Address";
-import User from "../database/models/User";
 import AddressController from "../controllers/AddressController";
 import authenticate from "../middlewares/authMiddleware";
-
-const myDataSource = DataSourceSingleton.getInstance();
+import ControllerFactory from "../factory/ControllerFactory";
 
 const router = express.Router();
-const adressRepository = new AddressRepository(myDataSource.getRepository(Address), myDataSource.getRepository(User));
-const adressController = new AddressController(adressRepository);
+const addressController = ControllerFactory.createController("address");
 
 const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, res, next)};
 
-router.post("/", middlewareAuth, (req, res)=> {adressController.createAddress(req, res)});
+if (addressController instanceof AddressController) {
+    router.post("/", middlewareAuth, (req, res) => { addressController.createAddress(req, res) });
+  } else {
+    throw new Error("Controller is not of type AddressController");
+  }
 
 export default router;

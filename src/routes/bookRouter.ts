@@ -7,31 +7,28 @@ import authenticate from '../middlewares/authMiddleware';
 import checkAdminMiddleware from '../middlewares/checkAdminMiddleware';
 import BookNotifier from '../observer/BookNotifier';
 import UserNotifier from '../observer/UserNotifier';
-
-const myDataSource = DataSourceSingleton.getInstance();
+import ControllerFactory from '../factory/ControllerFactory';
 
 const router = express.Router();
-
-const bookNotifier = new BookNotifier();
-
-const userNotifier = new UserNotifier();
-
-bookNotifier.attach(userNotifier);
-
-
-const bookRepository = new BookRepository(myDataSource.getRepository(Book));
-const bookController = new BookController(bookRepository, bookNotifier);
 
 
 const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, res, next)};
 const checkAdmin: RequestHandler = (req, res, next) => {checkAdminMiddleware(req, res, next)};
 
-router.get("/", async (req, res) => {await bookController.bookList(req, res)});
+const bookController = ControllerFactory.createController("book");
 
-//rotas protegidas com middlware de auth
-router.post("/", middlewareAuth, checkAdmin, async(req, res) => {await bookController.createBook(req, res)});
-router.put("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.updateBook(req, res)});
-router.delete("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.deleteBook(req, res)});
+if (bookController instanceof BookController){
+    router.get("/", async(req, res) => {await bookController.bookList(req, res)});
+    
+    //rotas protegidas com middlware de auth
+    router.post("/", middlewareAuth, checkAdmin, async(req, res) => {await bookController.createBook(req, res)});
+    router.put("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.updateBook(req, res)});
+    router.delete("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.deleteBook(req, res)});
+
+} else {
+    throw new Error("Controller is not of type BookController");
+}
+
 
 export default router;
 
