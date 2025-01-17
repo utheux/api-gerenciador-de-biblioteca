@@ -1,11 +1,8 @@
 import express from 'express';
-import DataSourceSingleton from '../database/DataSourceSingleton';
 import authenticate from '../middlewares/authMiddleware';
 import { RequestHandler } from 'express-serve-static-core';
 import checkAdminMiddleware from '../middlewares/checkAdminMiddleware';
 import ControllerFactory from '../factory/ControllerFactory';
-
-const myDataSource = DataSourceSingleton.getInstance();
 
 const router = express.Router();
 
