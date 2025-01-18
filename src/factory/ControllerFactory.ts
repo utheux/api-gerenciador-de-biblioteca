@@ -10,15 +10,15 @@ import Role from "../database/models/Role";
 import User from "../database/models/User";
 import BookNotifier from "../observer/BookNotifier";
 import UserNotifier from "../observer/UserNotifier";
+import AddressRepository from "../repositories/AddressRepository";
+import BookRepository from "../repositories/BookRepository";
+import RoleRepository from "../repositories/RoleRespository";
+import UserRepository from "../repositories/UserRepository";
 
+ 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class ControllerFactory {
-    private static createRepository(model: any, additionalModel?: any) {
-        const myDataSource = DataSourceSingleton.getInstance();
-        if (additionalModel) {
-            return new model(myDataSource.getRepository(model), myDataSource.getRepository(additionalModel));
-        }
-        return new model(myDataSource.getRepository(model));
-    }
+    private static myDataSource = DataSourceSingleton.getInstance();
 
     private static configureNotifiers() {
         const bookNotifier = new BookNotifier();
@@ -29,27 +29,27 @@ class ControllerFactory {
 
     static createBookController() {
         const { bookNotifier } = ControllerFactory.configureNotifiers();
-        const bookRepository = ControllerFactory.createRepository(Book);
+        const bookRepository = new BookRepository(ControllerFactory.myDataSource.getRepository(Book));
         return new BookController(bookRepository, bookNotifier);
     }
 
     static createUserController() {
-        const userRepository = ControllerFactory.createRepository(User, Role);
+        const userRepository = new UserRepository(ControllerFactory.myDataSource.getRepository(User), ControllerFactory.myDataSource.getRepository(Role));
         return new UserController(userRepository);
     }
 
     static createAuthController() {
-        const authRepository = ControllerFactory.createRepository(User, Role);
-        return new AuthController(authRepository);
+        const userRepository = new UserRepository(ControllerFactory.myDataSource.getRepository(User), ControllerFactory.myDataSource.getRepository(Role));
+        return new AuthController(userRepository);
     }
 
     static createRoleController() {
-        const roleRepository = ControllerFactory.createRepository(Role);
+        const roleRepository = new RoleRepository(ControllerFactory.myDataSource.getRepository(Role));
         return new RoleController(roleRepository);
     }
 
     static createAddressController() {
-        const addressRepository = ControllerFactory.createRepository(Address, User);
+        const addressRepository = new AddressRepository(ControllerFactory.myDataSource.getRepository(Address), ControllerFactory.myDataSource.getRepository(User));
         return new AddressController(addressRepository);
     }
 }
