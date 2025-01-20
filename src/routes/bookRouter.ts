@@ -12,8 +12,9 @@ const checkAdmin: RequestHandler = (req, res, next) => {checkAdminMiddleware(req
 const bookController = ControllerFactory.createBookController();
 
 router.get("/", async(req, res) => {await bookController.bookList(req, res)});
+router.get("/search", async(req, res) => {await bookController.searchBooks(req, res)});
     
-    //rotas protegidas com middlware de auth
+//rotas protegidas com middlware de auth
 router.post("/", middlewareAuth, checkAdmin, async(req, res) => {await bookController.createBook(req, res)});
 router.put("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.updateBook(req, res)});
 router.delete("/:bookId", middlewareAuth, checkAdmin, async(req, res) => {await bookController.deleteBook(req, res)});

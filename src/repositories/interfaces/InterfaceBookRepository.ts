@@ -1,4 +1,5 @@
 import Book from "../../database/models/Book";
+import { SearchStrategy } from "../strategies/interface/SearchStrategy";
 
 export default interface InterfaceBookRepository {
     createBook(book: Book): Promise<void>;
@@ -9,5 +10,5 @@ export default interface InterfaceBookRepository {
 
     deleteBook(id: number): Promise<{success: boolean; message?: string}>;
 
-    
+    searchBooks(querry: string, strategy: SearchStrategy): Promise<Book[]>;
 }

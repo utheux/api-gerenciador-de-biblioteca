@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 import Book from "../database/models/Book";
 import InterfaceBookRepository from "./interfaces/InterfaceBookRepository";
+import { SearchStrategy } from "./strategies/interface/SearchStrategy";
 
 
 export default class BookRepository implements InterfaceBookRepository{
@@ -41,6 +42,7 @@ export default class BookRepository implements InterfaceBookRepository{
             
         }
     }
+
     async deleteBook(id: number): Promise<{ success: boolean; message?: string; }> {
         try {
             const bookToDelete = await this.bookRepository.findOne({where: {id}});
@@ -61,6 +63,11 @@ export default class BookRepository implements InterfaceBookRepository{
             };         
         }
         
+    }
+
+    async searchBooks(querry: string, strategy: SearchStrategy): Promise<Book[]>{
+        const books = await this.bookList();
+        return strategy.search(querry, books);
     }
 
 }
