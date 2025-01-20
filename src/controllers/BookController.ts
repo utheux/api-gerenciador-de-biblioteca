@@ -13,8 +13,8 @@ export default class BookController {
     }
 
     async createBook(req: Request, res: Response){
-        const {name, description} = req.body;
-        const newBook = new Book(name, description);
+        const {name, description, author} = req.body;
+        const newBook = new Book(name, description, author);
 
         try {
             await this.bookRepository.createBook(newBook);
