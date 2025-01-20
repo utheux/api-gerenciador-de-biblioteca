@@ -2,6 +2,8 @@ import Book from "../database/models/Book";
 import BookNotifier from "../observer/BookNotifier";
 import BookRepository from "../repositories/BookRepository";
 import { Request, Response } from "express";
+import { TitleSearchStrategy } from "../repositories/strategies/TitleSearchStrategy";
+import { AuthorSearchStrategy } from "../repositories/strategies/AuthorSearchStrategy";
 
 export default class BookController {
     private bookRepository;
@@ -60,6 +62,22 @@ export default class BookController {
         }
 
         return res.sendStatus(204);
+    }
+
+    async searchBooks (req: Request, res: Response){
+        const {query, type} = req.query;
+
+        let strategy;
+        if(type === 'title'){
+            strategy = new TitleSearchStrategy();
+        } else if (type === 'author') {
+            strategy = new AuthorSearchStrategy();
+        } else {
+            return res.status(400).json({ error: 'Invalid search type' });
+        }
+
+        const books = await this.bookRepository.searchBooks(query as string, strategy);
+        res.status(200).json(books);
     }
 
 
