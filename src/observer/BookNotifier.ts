@@ -2,7 +2,6 @@ import Observer from "./interfaces/ObserverInterface";
 import Subject from "./interfaces/SubjectInterface";
 
 
-
 class BookNotifier implements Subject {
     private observers: Observer[] = [];
 

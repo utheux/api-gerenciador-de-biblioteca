@@ -12,6 +12,7 @@ const authController = ControllerFactory.createAuthController();
 const middlewareAuth: RequestHandler = (req, res, next) => {authenticate(req, res, next)};
 const checkAdmin: RequestHandler = (req, res, next) => {checkAdminMiddleware(req, res, next)};
 
+// rota para se cadastrar e fazer login
 router.post("/", (req, res)=> {userController.createUser(req, res)});
 router.post("/login", (req, res) => {authController.login(req, res)});
 
