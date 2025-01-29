@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Role from './Role';
 import Address from './Address';
+import Reservation from './Reservation';
 
 @Entity('users')
 export default class User{
@@ -35,6 +36,9 @@ export default class User{
 
     @ManyToOne(()=> Role, (role)=> role.users)
     role!: Role
+    
+    @OneToMany(() => Reservation, (reservation) => reservation.user)
+    reservations!: Reservation[]; 
     
 
     constructor(name: string, lastName: string, email: string, cellphone: string, password: string, photo?: string, address?: Address){

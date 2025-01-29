@@ -3,6 +3,7 @@ import Address from './models/Address';
 import Book from './models/Book';
 import User from './models/User';
 import Role from './models/Role';
+import Reservation from './models/Reservation';
 
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -16,7 +17,7 @@ export default class DataSourceSingleton {
                 database: 'src/database/database.sqlite',
                 logging: true,
                 synchronize: true,
-                entities: [User, Address, Book, Role],
+                entities: [User, Address, Book, Role, Reservation],
             });
         }
 
