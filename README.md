@@ -196,7 +196,7 @@ O projeto utiliza diversos padrões de projeto para garantir qualidade e escalab
 - **Singleton**: Aplicado no serviço de e-mails para garantir uma única instância do transporte de envio.
 - **Dependency Injection**: Facilita a substituição de componentes, tornando o código mais testável e modular.
 
-## Stack utilizada
+## Ferramentas utilizadas
 
 **Back-end:** Node.js, Express, TypeScript, TypeORM
 
