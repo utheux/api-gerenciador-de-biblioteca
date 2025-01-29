@@ -26,7 +26,7 @@ export default class UserRepository implements InterfaceUserRepository{
         return userList;
     }
 
-    async updateUser(id: number, newUser: User): Promise<{ success: boolean; message?: string; }> {
+    async updateUser(id: number, newUser: Partial<User>): Promise<{ success: boolean; message?: string; }> {
         try {
             const userToUpdate = await this.userRepository.findOne({where: {id}});
 

@@ -22,6 +22,8 @@ export default class ReservationRepository {
             return {success: false, message: "Book not found"};
         }
 
+        book.status = false;
+
         const user = await this.userRepository.findOne({where: {id: userId}});
 
         console.log(book)

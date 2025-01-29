@@ -31,10 +31,12 @@ export default class UserController {
     }
 
     async updateUser(req: Request, res: Response){
-        const newUser = req.body as User;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...updateData } = req.body as Partial<User>; // Remove a senha
         const userId = req.user?.userId;
 
-        const {success, message} = await this.userRepository.updateUser(Number(userId), newUser);
+
+        const {success, message} = await this.userRepository.updateUser(Number(userId), updateData);
 
         if(!success){
             res.status(404).json({error: message});
