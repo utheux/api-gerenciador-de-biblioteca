@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import Reservation from "./Reservation";
 
 @Entity('books')
 export default class Book {
@@ -16,6 +17,9 @@ export default class Book {
 
     @Column()
     status: boolean;
+
+    @ManyToOne(() => Reservation, (reservation) => reservation.books)
+    reservation!: Reservation;
 
     constructor(name: string, description: string, author: string){
         this.name = name;
