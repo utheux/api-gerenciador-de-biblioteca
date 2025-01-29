@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import Reservation from "../database/models/Reservation";
 import ReservationRepository from "../repositories/ReservationRepository";
 
 export default class ReservationController {
