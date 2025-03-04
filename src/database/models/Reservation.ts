@@ -7,11 +7,11 @@ export default class Reservation {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @ManyToOne(() => User, (user) => user.reservations)
+    @ManyToOne(() => User, (user) => user.reservations, {onDelete: 'CASCADE'})
     user!: User;
 
     // Relação um para muitos (uma reserva pode ter vários livros)
-    @OneToMany(() => Book, (book) => book.reservation)
+    @OneToMany(() => Book, (book) => book.reservation,{onDelete: 'CASCADE'})
     books!: Book[];
 
     @Column()

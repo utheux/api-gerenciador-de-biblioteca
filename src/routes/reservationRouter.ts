@@ -16,5 +16,7 @@ const reservationRepository = new ReservationRepository(myDataSource.getReposito
 const reservationController = new ReservationController(reservationRepository);
 
 router.post("/:bookId", middlewareAuth, (req, res) => {reservationController.createReservation(req, res)});
-
+router.get("/", middlewareAuth, (req, res) => {reservationController.listReservation(req, res)});
+router.put("/:id", middlewareAuth, (req, res) => {reservationController.updateReservation(req,res)});
+router.delete("/:id", middlewareAuth, (req, res) => {reservationController.deleteReservation(req, res)});
 export default router;
